@@ -7,6 +7,7 @@ using System.Security.Claims;
 public class MedicoController : ControllerBase
 {
     private readonly MedicoService _medicoService;
+    private int _userId => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
 
     public MedicoController(MedicoService medicoService)
     {
@@ -26,8 +27,7 @@ public class MedicoController : ControllerBase
     [HttpGet("perfil")]
     public async Task<IActionResult> GetPerfil()
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var medico = await _medicoService.ObterMedicoPorUsuarioId(userId);
+        var medico = await _medicoService.ObterMedicoPorUsuarioId(_userId);
         if (medico == null) return NotFound("Médico não encontrado.");
         return Ok(medico);
     }
@@ -36,8 +36,7 @@ public class MedicoController : ControllerBase
     [HttpPut("atualizar")]
     public async Task<IActionResult> AtualizarMedico([FromBody] AtualizarMedicoDto model)
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var atualizado = await _medicoService.AtualizarMedico(userId, model);
+        var atualizado = await _medicoService.AtualizarMedico(_userId, model);
         if (!atualizado) return BadRequest("Erro ao atualizar.");
         return Ok("Dados atualizados com sucesso.");
     }
@@ -46,8 +45,7 @@ public class MedicoController : ControllerBase
     [HttpDelete("deletar")]
     public async Task<IActionResult> DeletarMedico()
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var deletado = await _medicoService.DeletarMedico(userId);
+        var deletado = await _medicoService.DeletarMedico(_userId);
         if (!deletado) return BadRequest("Erro ao deletar conta.");
         return Ok("Médico deletado com sucesso.");
     }

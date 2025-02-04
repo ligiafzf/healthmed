@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public class PacienteController : ControllerBase
 {
     private readonly PacienteService _pacienteService;
-
+    private int _userId => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
     public PacienteController(PacienteService pacienteService)
     {
         _pacienteService = pacienteService;
@@ -27,8 +27,7 @@ public class PacienteController : ControllerBase
     [HttpGet("perfil")]
     public async Task<IActionResult> GetPerfil()
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var paciente = await _pacienteService.ObterPacientePorUsuarioId(userId);
+        var paciente = await _pacienteService.ObterPacientePorUsuarioId(_userId);
         if (paciente == null) return NotFound("Paciente não encontrado.");
         return Ok(paciente);
     }
@@ -36,8 +35,7 @@ public class PacienteController : ControllerBase
     [HttpPut("atualizar")]
     public async Task<IActionResult> AtualizarPaciente([FromBody] AtualizarPacienteDto model)
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var atualizado = await _pacienteService.AtualizarPaciente(userId, model);
+        var atualizado = await _pacienteService.AtualizarPaciente(_userId, model);
         if (!atualizado) return BadRequest("Erro ao atualizar.");
         return Ok("Dados atualizados com sucesso.");
     }
@@ -46,8 +44,7 @@ public class PacienteController : ControllerBase
     [HttpDelete("deletar")]
     public async Task<IActionResult> DeletarPaciente()
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var deletado = await _pacienteService.DeletarPaciente(userId);
+        var deletado = await _pacienteService.DeletarPaciente(_userId);
         if (!deletado) return BadRequest("Erro ao deletar conta.");
         return Ok("Paciente deletado com sucesso.");
     }

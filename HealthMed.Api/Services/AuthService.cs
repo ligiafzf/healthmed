@@ -50,18 +50,28 @@ public class AuthService : IAuthService
 
     private string GerarTokenJWT(Usuario usuario, string identificador)
     {
-        var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+        // Valida se a chave JWT foi configurada
+        var chaveJwt = _config["Jwt:Key"];
+        if (string.IsNullOrWhiteSpace(chaveJwt))
+            throw new InvalidOperationException("A chave JWT não foi configurada corretamente.");
+
+        // Converte a chave para bytes e cria a chave simétrica
+        var key = Encoding.UTF8.GetBytes(chaveJwt);
         var securityKey = new SymmetricSecurityKey(key);
+
+        // Define as credenciais de assinatura
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+        // Cria a lista de claims com as informações do usuário
         var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, usuario.Nome),
-            new Claim(ClaimTypes.Role, usuario.Role), // "Medico" ou "Paciente"
-            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim("Identificador", identificador) // CRM para médicos, CPF para pacientes
-        };
+    {
+        new Claim(ClaimTypes.Name, usuario.Nome),
+        new Claim(ClaimTypes.Role, usuario.Role), // Ex: "Medico" ou "Paciente"
+        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+        new Claim("Identificador", identificador) // Ex: CRM para médicos, CPF para pacientes
+    };
 
+        // Define as propriedades do token
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
@@ -71,8 +81,10 @@ public class AuthService : IAuthService
             SigningCredentials = credentials
         };
 
+        // Cria e retorna o token JWT
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
+
 }

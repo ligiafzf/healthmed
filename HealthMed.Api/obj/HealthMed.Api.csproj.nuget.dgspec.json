@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Api/HealthMed.Api.csproj": {}
+    "C:\\Users\\lucas\\Source\\Repos\\healthmed\\HealthMed.Api\\HealthMed.Api.csproj": {}
   },
   "projects": {
-    "/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Api/HealthMed.Api.csproj": {
+    "C:\\Users\\lucas\\Source\\Repos\\healthmed\\HealthMed.Api\\HealthMed.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Api/HealthMed.Api.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\Source\\Repos\\healthmed\\HealthMed.Api\\HealthMed.Api.csproj",
         "projectName": "HealthMed.Api",
-        "projectPath": "/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Api/HealthMed.Api.csproj",
-        "packagesPath": "/Users/ligiaferrazfranco/.nuget/packages/",
-        "outputPath": "/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Api/obj/",
+        "projectPath": "C:\\Users\\lucas\\Source\\Repos\\healthmed\\HealthMed.Api\\HealthMed.Api.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\Source\\Repos\\healthmed\\HealthMed.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/ligiaferrazfranco/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,12 +43,17 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.12, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.12, )"
@@ -97,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.405/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
