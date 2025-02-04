@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: healthmed_api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlConnection=Server=sqlserver;Database=HealthMed;User Id=sa;Password=health_med123!;TrustServerCertificate=True
+    networks:
+      - healthmed_network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: healthmed_db
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=health_med123!
+    networks:
+      - healthmed_network
+
+networks:
+  healthmed_network:
+    driver: bridge

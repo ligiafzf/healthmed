@@ -1,6 +1,0 @@
-@HealthMed.Api_HostAddress = http://localhost:5285
-
-GET {{HealthMed.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
