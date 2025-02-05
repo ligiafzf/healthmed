@@ -96,6 +96,13 @@ public static class StartupExtensions
 
                 options.Events = new JwtBearerEvents
                 {
+                    OnForbidden = async context =>
+                    {
+                        context.Response.StatusCode = 403;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync("{\"error\": \"Acesso proibido: você não tem permissão para acessar este recurso.\"}");
+                    },
                     OnChallenge = context =>
                     {
                         context.HandleResponse();
