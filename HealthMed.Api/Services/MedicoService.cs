@@ -1,9 +1,12 @@
+using HealthMed.Api.Dtos;
+using HealthMed.Api.Entities;
+using HealthMed.Api.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Xml;
 
-public class MedicoService
+namespace HealthMed.Api.Services;
+
+public class MedicoService : IMedicoService
 {
     private readonly ApplicationDbContext _context;
     private readonly IPasswordHasher<Usuario> _passwordHasher;
@@ -14,11 +17,12 @@ public class MedicoService
         _passwordHasher = passwordHasher;
     }
 
-    // 📌 **Cadastrar Médico**
     public async Task<bool> CadastrarMedico(CadastroMedicoDto dto)
     {
-        if (_context.Usuarios.Any(u => u.Email == dto.Email))
-            return false; // E-mail já cadastrado
+        if (await _context.Usuarios.AnyAsync(u => u.Email == dto.Email))
+            return false;
+
+        using var transaction = await _context.Database.BeginTransactionAsync();
 
         var usuario = new Usuario
         {
@@ -42,18 +46,18 @@ public class MedicoService
         _context.Medicos.Add(medico);
         await _context.SaveChangesAsync();
 
+        await transaction.CommitAsync();
         return true;
     }
 
-    // 📌 **Obter Médico pelo ID do Usuário**
-    public async Task<Medico> ObterMedicoPorUsuarioId(int usuarioId)
+    public async Task<Medico?> ObterMedicoPorUsuarioId(int usuarioId)
     {
         return await _context.Medicos
+            .AsNoTracking()
             .Include(m => m.Usuario)
             .FirstOrDefaultAsync(m => m.UsuarioId == usuarioId);
     }
 
-    // 📌 **Atualizar Dados do Médico**
     public async Task<bool> AtualizarMedico(int usuarioId, AtualizarMedicoDto model)
     {
         var medico = await _context.Medicos.FirstOrDefaultAsync(m => m.UsuarioId == usuarioId);
@@ -66,9 +70,10 @@ public class MedicoService
         return true;
     }
 
-    // 📌 **Deletar Médico**
     public async Task<bool> DeletarMedico(int usuarioId)
     {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+
         var medico = await _context.Medicos.FirstOrDefaultAsync(m => m.UsuarioId == usuarioId);
         if (medico == null) return false;
 
@@ -78,6 +83,7 @@ public class MedicoService
         if (usuario != null) _context.Usuarios.Remove(usuario);
 
         await _context.SaveChangesAsync();
+        await transaction.CommitAsync();
         return true;
     }
 }

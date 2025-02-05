@@ -4,6 +4,10 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
+using HealthMed.Api.Interfaces;
+using HealthMed.Api.Entities;
+
+namespace HealthMed.Api.Services;
 
 public class AuthService : IAuthService
 {
@@ -18,13 +22,14 @@ public class AuthService : IAuthService
         _config = config;
     }
 
-    public async Task<string> AutenticarMedico(string crm, string senha)
+    public async Task<string?> AutenticarMedico(string crm, string senha)
     {
         var medico = await _context.Medicos
+            .AsNoTracking()
             .Include(m => m.Usuario)
             .SingleOrDefaultAsync(m => m.CRM == crm);
 
-        if (medico == null || 
+        if (medico == null ||
             _passwordHasher.VerifyHashedPassword(medico.Usuario, medico.Usuario.SenhaHash, senha) != PasswordVerificationResult.Success)
         {
             return null;
@@ -33,13 +38,14 @@ public class AuthService : IAuthService
         return GerarTokenJWT(medico.Usuario, medico.CRM);
     }
 
-    public async Task<string> AutenticarPaciente(string cpf, string senha)
+    public async Task<string?> AutenticarPaciente(string cpf, string senha)
     {
         var paciente = await _context.Pacientes
+            .AsNoTracking()
             .Include(p => p.Usuario)
             .SingleOrDefaultAsync(p => p.CPF == cpf);
 
-        if (paciente == null || 
+        if (paciente == null ||
             _passwordHasher.VerifyHashedPassword(paciente.Usuario, paciente.Usuario.SenhaHash, senha) != PasswordVerificationResult.Success)
         {
             return null;
@@ -50,28 +56,17 @@ public class AuthService : IAuthService
 
     private string GerarTokenJWT(Usuario usuario, string identificador)
     {
-        // Valida se a chave JWT foi configurada
-        var chaveJwt = _config["Jwt:Key"];
-        if (string.IsNullOrWhiteSpace(chaveJwt))
-            throw new InvalidOperationException("A chave JWT não foi configurada corretamente.");
+        var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+        var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
-        // Converte a chave para bytes e cria a chave simétrica
-        var key = Encoding.UTF8.GetBytes(chaveJwt);
-        var securityKey = new SymmetricSecurityKey(key);
-
-        // Define as credenciais de assinatura
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        // Cria a lista de claims com as informações do usuário
         var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, usuario.Nome),
-        new Claim(ClaimTypes.Role, usuario.Role), // Ex: "Medico" ou "Paciente"
-        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-        new Claim("Identificador", identificador) // Ex: CRM para médicos, CPF para pacientes
-    };
+        {
+            new Claim(ClaimTypes.Name, usuario.Nome),
+            new Claim(ClaimTypes.Role, usuario.Role),
+            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+            new Claim("Identificador", identificador)
+        };
 
-        // Define as propriedades do token
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
@@ -81,10 +76,6 @@ public class AuthService : IAuthService
             SigningCredentials = credentials
         };
 
-        // Cria e retorna o token JWT
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityTokenHandler().CreateToken(tokenDescriptor));
     }
-
 }

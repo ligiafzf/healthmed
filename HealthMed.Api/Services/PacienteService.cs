@@ -1,8 +1,12 @@
+using HealthMed.Api.Dtos;
+using HealthMed.Api.Entities;
+using HealthMed.Api.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
-public class PacienteService
+namespace HealthMed.Api.Services;
+
+public class PacienteService : IPacienteService
 {
     private readonly ApplicationDbContext _context;
     private readonly IPasswordHasher<Usuario> _passwordHasher;
@@ -13,17 +17,19 @@ public class PacienteService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<bool> CadastrarPaciente(string nome, string email, string senha, string cpf, string telefone)
+    public async Task<bool> CadastrarPaciente(CadastroPacienteDto model)
     {
-        if (_context.Usuarios.Any(u => u.Email == email))
-            return false; // E-mail já cadastrado
+        if (await _context.Usuarios.AnyAsync(u => u.Email == model.Email))
+            return false;
+
+        using var transaction = await _context.Database.BeginTransactionAsync();
 
         var usuario = new Usuario
         {
-            Nome = nome,
-            Email = email,
+            Nome = model.Nome,
+            Email = model.Email,
             Role = "Paciente",
-            SenhaHash = _passwordHasher.HashPassword(null, senha)
+            SenhaHash = _passwordHasher.HashPassword(null, model.Senha)
         };
 
         _context.Usuarios.Add(usuario);
@@ -32,25 +38,25 @@ public class PacienteService
         var paciente = new Paciente
         {
             UsuarioId = usuario.Id,
-            CPF = cpf,
-            Telefone = telefone
+            CPF = model.CPF,
+            Telefone = model.Telefone
         };
 
         _context.Pacientes.Add(paciente);
         await _context.SaveChangesAsync();
 
+        await transaction.CommitAsync();
         return true;
     }
 
-    // 📌 **Obter Paciente pelo ID do Usuário**
-    public async Task<Paciente> ObterPacientePorUsuarioId(int usuarioId)
+    public async Task<Paciente?> ObterPacientePorUsuarioId(int usuarioId)
     {
         return await _context.Pacientes
+            .AsNoTracking()
             .Include(p => p.Usuario)
             .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId);
     }
 
-    // 📌 **Atualizar Dados do Paciente**
     public async Task<bool> AtualizarPaciente(int usuarioId, AtualizarPacienteDto model)
     {
         var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.UsuarioId == usuarioId);
@@ -62,9 +68,10 @@ public class PacienteService
         return true;
     }
 
-    // 📌 **Deletar Paciente**
     public async Task<bool> DeletarPaciente(int usuarioId)
     {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+
         var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.UsuarioId == usuarioId);
         if (paciente == null) return false;
 
@@ -74,6 +81,8 @@ public class PacienteService
         if (usuario != null) _context.Usuarios.Remove(usuario);
 
         await _context.SaveChangesAsync();
+        await transaction.CommitAsync();
+
         return true;
     }
 }

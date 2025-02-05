@@ -1,3 +1,4 @@
+namespace HealthMed.Api.Entities;
 public class Medico
 {
     public int Id { get; set; }

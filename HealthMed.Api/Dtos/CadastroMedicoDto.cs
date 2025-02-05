@@ -1,3 +1,4 @@
+namespace HealthMed.Api.Dtos; 
 public class CadastroMedicoDto
 {
     public string Nome { get; set; }

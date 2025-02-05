@@ -1,3 +1,4 @@
+using HealthMed.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
