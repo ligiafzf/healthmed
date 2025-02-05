@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using HealthMed.Api.Entities;
+using HealthMed.Api.Interfaces;
+using HealthMed.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -20,8 +23,8 @@ public static class StartupExtensions
         services.ConfigureAuthentication(configuration);
 
         services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
-        services.AddScoped<MedicoService>();
-        services.AddScoped<PacienteService>();
+        services.AddScoped<IMedicoService, MedicoService>();
+        services.AddScoped<IPacienteService, PacienteService>();
         services.AddScoped<IAuthService, AuthService>();
     }
 

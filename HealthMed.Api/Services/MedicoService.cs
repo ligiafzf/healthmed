@@ -17,7 +17,7 @@ public class MedicoService : IMedicoService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<bool> CadastrarMedico(CadastroMedicoDto dto)
+    public async Task<bool> Cadastrar(CadastroMedicoDto dto)
     {
         if (await _context.Usuarios.AnyAsync(u => u.Email == dto.Email))
             return false;
@@ -50,7 +50,7 @@ public class MedicoService : IMedicoService
         return true;
     }
 
-    public async Task<Medico?> ObterMedicoPorUsuarioId(int usuarioId)
+    public async Task<Medico?> ObterPorUsuarioId(int usuarioId)
     {
         return await _context.Medicos
             .AsNoTracking()
@@ -58,7 +58,7 @@ public class MedicoService : IMedicoService
             .FirstOrDefaultAsync(m => m.UsuarioId == usuarioId);
     }
 
-    public async Task<bool> AtualizarMedico(int usuarioId, AtualizarMedicoDto model)
+    public async Task<bool> Atualizar(int usuarioId, AtualizarMedicoDto model)
     {
         var medico = await _context.Medicos.FirstOrDefaultAsync(m => m.UsuarioId == usuarioId);
         if (medico == null) return false;
@@ -70,7 +70,7 @@ public class MedicoService : IMedicoService
         return true;
     }
 
-    public async Task<bool> DeletarMedico(int usuarioId)
+    public async Task<bool> Deletar(int usuarioId)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
 

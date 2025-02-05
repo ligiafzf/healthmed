@@ -17,7 +17,7 @@ public class PacienteService : IPacienteService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<bool> CadastrarPaciente(CadastroPacienteDto model)
+    public async Task<bool> Cadastrar(CadastroPacienteDto model)
     {
         if (await _context.Usuarios.AnyAsync(u => u.Email == model.Email))
             return false;
@@ -49,7 +49,7 @@ public class PacienteService : IPacienteService
         return true;
     }
 
-    public async Task<Paciente?> ObterPacientePorUsuarioId(int usuarioId)
+    public async Task<Paciente?> ObterPorUsuarioId(int usuarioId)
     {
         return await _context.Pacientes
             .AsNoTracking()
@@ -57,7 +57,7 @@ public class PacienteService : IPacienteService
             .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId);
     }
 
-    public async Task<bool> AtualizarPaciente(int usuarioId, AtualizarPacienteDto model)
+    public async Task<bool> Atualizar(int usuarioId, AtualizarPacienteDto model)
     {
         var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.UsuarioId == usuarioId);
         if (paciente == null) return false;
@@ -68,7 +68,7 @@ public class PacienteService : IPacienteService
         return true;
     }
 
-    public async Task<bool> DeletarPaciente(int usuarioId)
+    public async Task<bool> Deletar(int usuarioId)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
 
