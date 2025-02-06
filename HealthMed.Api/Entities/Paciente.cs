@@ -1,4 +1,4 @@
-namespace HealthMed.Api.Entities; 
+namespace HealthMed.Api.Entities;
 public class Paciente
 {
     public int Id { get; set; }

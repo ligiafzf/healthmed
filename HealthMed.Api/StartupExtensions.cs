@@ -25,6 +25,7 @@ public static class StartupExtensions
         services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
         services.AddScoped<IMedicoService, MedicoService>();
         services.AddScoped<IPacienteService, PacienteService>();
+        services.AddScoped<IAgendamentoService, AgendamentoService>();
         services.AddScoped<IAuthService, AuthService>();
     }
 

@@ -35,7 +35,7 @@ public class MedicoService : IMedicoService
         _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
 
-        var medico = new Medico
+        var medico = new Medico()
         {
             UsuarioId = usuario.Id,
             CRM = dto.CRM,
