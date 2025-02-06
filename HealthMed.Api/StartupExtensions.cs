@@ -1,6 +1,8 @@
 ﻿using HealthMed.Api.Entities;
 using HealthMed.Api.Interfaces;
 using HealthMed.Api.Services;
+using HealthMed.Domain.Repositories;
+using HealthMed.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,11 @@ public static class StartupExtensions
         services.AddScoped<IPacienteService, PacienteService>();
         services.AddScoped<IAgendamentoService, AgendamentoService>();
         services.AddScoped<IAuthService, AuthService>();
+
+        services.AddScoped<IMedicoRepository, MedicoRepository>();
+        services.AddScoped<IPacienteRepository, PacienteRepository>();
+        services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
+        services.AddScoped<IAuthRepository, AuthRepository>();
     }
 
     private static void AddSwagger(this IServiceCollection services)

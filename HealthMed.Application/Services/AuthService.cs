@@ -1,57 +1,52 @@
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Tokens.Jwt;
 using HealthMed.Api.Interfaces;
 using HealthMed.Api.Entities;
+using HealthMed.Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace HealthMed.Api.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IAuthRepository _authRepository;
     private readonly IPasswordHasher<Usuario> _passwordHasher;
     private readonly IConfiguration _config;
 
-    public AuthService(ApplicationDbContext context, IPasswordHasher<Usuario> passwordHasher, IConfiguration config)
+    public AuthService(IAuthRepository authRepository, IPasswordHasher<Usuario> passwordHasher, IConfiguration config)
     {
-        _context = context;
+        _authRepository = authRepository;
         _passwordHasher = passwordHasher;
         _config = config;
     }
 
     public async Task<string?> AutenticarMedico(string crm, string senha)
     {
-        var medico = await _context.Medicos
-            .AsNoTracking()
-            .Include(m => m.Usuario)
-            .SingleOrDefaultAsync(m => m.CRM == crm);
+        var medico = await _authRepository.ObterUsuarioPorCRM(crm);
 
         if (medico == null ||
-            _passwordHasher.VerifyHashedPassword(medico.Usuario, medico.Usuario.SenhaHash, senha) != PasswordVerificationResult.Success)
+            _passwordHasher.VerifyHashedPassword(medico, medico.SenhaHash, senha) != PasswordVerificationResult.Success)
         {
             return null;
         }
 
-        return GerarTokenJWT(medico.Usuario, medico.CRM);
+        return GerarTokenJWT(medico, crm);
     }
 
     public async Task<string?> AutenticarPaciente(string cpf, string senha)
     {
-        var paciente = await _context.Pacientes
-            .AsNoTracking()
-            .Include(p => p.Usuario)
-            .SingleOrDefaultAsync(p => p.CPF == cpf);
+        var paciente = await _authRepository.ObterUsuarioPorCPF(cpf);
 
         if (paciente == null ||
-            _passwordHasher.VerifyHashedPassword(paciente.Usuario, paciente.Usuario.SenhaHash, senha) != PasswordVerificationResult.Success)
+            _passwordHasher.VerifyHashedPassword(paciente, paciente.SenhaHash, senha) != PasswordVerificationResult.Success)
         {
             return null;
         }
 
-        return GerarTokenJWT(paciente.Usuario, paciente.CPF);
+        return GerarTokenJWT(paciente, cpf);
     }
 
     private string GerarTokenJWT(Usuario usuario, string identificador)

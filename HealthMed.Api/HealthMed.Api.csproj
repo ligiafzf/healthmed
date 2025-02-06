@@ -21,4 +21,10 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HealthMed.Application\HealthMed.Application.csproj" />
+    <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
+    <ProjectReference Include="..\HealthMed.Infrastructure\HealthMed.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
