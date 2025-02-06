@@ -43,6 +43,10 @@ namespace HealthMed.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MedicoId");
+
+                    b.HasIndex("PacienteId");
+
                     b.ToTable("Agendamentos");
                 });
 
@@ -127,6 +131,25 @@ namespace HealthMed.Api.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Medicos");
+                });
+
+            modelBuilder.Entity("HealthMed.Api.Entities.Agendamento", b =>
+                {
+                    b.HasOne("Medico", "Medico")
+                        .WithMany()
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("HealthMed.Api.Entities.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("HealthMed.Api.Entities.Paciente", b =>

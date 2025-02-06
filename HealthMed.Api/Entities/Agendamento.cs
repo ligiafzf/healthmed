@@ -8,6 +8,9 @@ public class Agendamento
     public DateTime DataHora { get; private set; }
     public bool Aprovado { get; private set; } = false;
 
+    public Paciente Paciente { get; set; }
+    public Medico Medico { get; set; }
+
     public Agendamento(int medicoId, int pacienteId, DateTime dataHora)
     {
         MedicoId = medicoId;

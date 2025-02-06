@@ -24,8 +24,18 @@ public class AgendamentoController : ControllerBase
         return Ok(medicos);
     }
 
+    [Authorize(Roles = "Medico")]
+    [HttpGet("{medicoId}/agendamentos")]
+    public async Task<IActionResult> ListarAgendamentos(int medicoId, [FromQuery] StatusAgendamento status = StatusAgendamento.Todos)
+    {
+
+        var agendamentos = await _agendamentoService.Listar(medicoId, status);
+        return Ok(agendamentos);
+
+    }
+
     [Authorize(Roles = "Paciente")]
-    [HttpGet("medico/{medicoId}/horarios-disponiveis")]
+    [HttpGet("{medicoId}/horarios-disponiveis")]
     public async Task<IActionResult> ObterHorariosDisponiveis(int medicoId, [FromQuery] DateTime data)
     {
         var horarios = await _agendamentoService.ObterHorariosDisponiveis(medicoId, data);
@@ -36,15 +46,23 @@ public class AgendamentoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CriarAgendamento([FromBody] CadastroAgendamentoDto dto)
     {
-        await _agendamentoService.CriarAgendamento(dto.MedicoId, dto.PacienteId, dto.DataHora);
+        await _agendamentoService.Criar(dto);
         return Ok("Agendamento realizado com sucesso.");
     }
 
     [Authorize(Roles = "Medico")]
     [HttpPut("{id}/aceitar")]
-    public async Task<IActionResult> AceitarAgendamento(int id)
+    public async Task<IActionResult> Aceitar(int id)
     {
-        await _agendamentoService.AceitarAgendamento(id);
+        await _agendamentoService.Aceitar(id);
         return Ok("Agendamento aceito.");
+    }
+
+    [Authorize(Roles = "Medico")]
+    [HttpPut("{id}/rejeitar")]
+    public async Task<IActionResult> Rejeitar(int id)
+    {
+        await _agendamentoService.Rejeitar(id);
+        return Ok("Agendamento rejeitado.");
     }
 }

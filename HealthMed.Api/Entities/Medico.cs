@@ -11,36 +11,26 @@ public class Medico
 
     public List<DateTime> ObterHorariosDisponiveis(List<Agendamento> agendamentos, DateTime data)
     {
-        List<DateTime> horariosDisponiveis = new List<DateTime>();
-        DateTime agora = DateTime.Now;
+        var horariosDisponiveis = new List<DateTime>();
+        var agora = DateTime.Now;
+        var horarioInicio = data.Date.Add(HorarioInicio);
+        var horarioFim = data.Date.Add(HorarioFim);
 
-        DateTime horarioAtual = data.Date.Add(HorarioInicio);
-        if (horarioAtual < agora)
-        {
-            int minutosAjuste = 15 - (agora.Minute % 15);
-            horarioAtual = agora.AddMinutes(minutosAjuste);
-        }
+        if (data.Date == agora.Date && horarioInicio < agora)
+            horarioInicio = agora.AddMinutes(15 - (agora.Minute % 15));
 
-        DateTime horarioFim = data.Date.Add(HorarioFim);
-
-        while (horarioAtual < horarioFim)
+        for (var horarioAtual = horarioInicio; horarioAtual < horarioFim; horarioAtual = horarioAtual.AddMinutes(15))
         {
             if (horarioAtual.Hour == 12)
             {
-                horarioAtual = horarioAtual.AddMinutes(60);
+                horarioAtual = horarioAtual.AddHours(1);
                 continue;
             }
 
-            bool horarioJaAgendado = agendamentos.Any(a => a.DataHora == horarioAtual && a.Aprovado);
-            if (!horarioJaAgendado)
-            {
+            if (!agendamentos.Any(a => a.DataHora == horarioAtual))
                 horariosDisponiveis.Add(horarioAtual);
-            }
-
-            horarioAtual = horarioAtual.AddMinutes(15);
         }
 
         return horariosDisponiveis;
     }
-
 }

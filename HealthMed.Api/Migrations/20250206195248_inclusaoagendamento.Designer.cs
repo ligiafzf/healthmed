@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250204202921_RemocaoEspecialidade")]
-    partial class RemocaoEspecialidade
+    [Migration("20250206195248_inclusaoagendamento")]
+    partial class inclusaoagendamento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace HealthMed.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Medico", b =>
+            modelBuilder.Entity("HealthMed.Api.Entities.Agendamento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,27 +32,28 @@ namespace HealthMed.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CRM")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Aprovado")
+                        .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("HorarioFim")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("HorarioInicio")
-                        .HasColumnType("time");
+                    b.Property<int>("MedicoId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("PacienteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("MedicoId");
 
-                    b.ToTable("Medicos");
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("Agendamentos");
                 });
 
-            modelBuilder.Entity("Paciente", b =>
+            modelBuilder.Entity("HealthMed.Api.Entities.Paciente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +79,7 @@ namespace HealthMed.Api.Migrations
                     b.ToTable("Pacientes");
                 });
 
-            modelBuilder.Entity("Usuario", b =>
+            modelBuilder.Entity("HealthMed.Api.Entities.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +110,54 @@ namespace HealthMed.Api.Migrations
 
             modelBuilder.Entity("Medico", b =>
                 {
-                    b.HasOne("Usuario", "Usuario")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CRM")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("HorarioFim")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HorarioInicio")
+                        .HasColumnType("time");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Medicos");
+                });
+
+            modelBuilder.Entity("HealthMed.Api.Entities.Agendamento", b =>
+                {
+                    b.HasOne("Medico", "Medico")
+                        .WithMany()
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("HealthMed.Api.Entities.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("HealthMed.Api.Entities.Paciente", b =>
+                {
+                    b.HasOne("HealthMed.Api.Entities.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -118,9 +166,9 @@ namespace HealthMed.Api.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Paciente", b =>
+            modelBuilder.Entity("Medico", b =>
                 {
-                    b.HasOne("Usuario", "Usuario")
+                    b.HasOne("HealthMed.Api.Entities.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
