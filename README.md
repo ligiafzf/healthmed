@@ -13,7 +13,7 @@ HealthMed API é um sistema em **.NET 8** para gerenciamento de consultas médic
 ## 🔧 Configuração
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/se/healthmed-api.git
+   git clone https://github.com/ligiafzf/healthmed-api.git
    cd healthmed-api
    ```
 2. Configure o banco de dados em `appsettings.json`.
