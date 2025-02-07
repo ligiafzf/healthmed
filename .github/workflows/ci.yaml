@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore
-      run: dotnet restore HealthMed/HealthMed.Api.csproj
+      run: dotnet restore ./HealthMed/HealthMed.Api.csproj
 
     - name: Build
-      run: dotnet build HealthMed/HealthMed.Api.csproj --configuration Release --no-restore
+      run: dotnet build ./HealthMed/HealthMed.Api.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test HealthMed/HealthMed.Api.csproj --configuration Release
+      run: dotnet test ./HealthMed/HealthMed.Test.csproj --configuration Release
