@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore healthmed.sln
 
     - name: Build
-      run: dotnet build HealthMed/HealthMed.Api.csproj --configuration Release --no-restore
+      run: dotnet build HealthMed.Api/HealthMed.Api.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test HealthMed/HealthMed.Test.csproj --configuration Release
+      run: dotnet test HealthMed.Tests/HealthMed.Tests.csproj --configuration Release
