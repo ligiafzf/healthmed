@@ -1,0 +1,24 @@
+name: CD 
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deploy-simulation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login no Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Baixar imagem do Docker Hub
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/healthmed-api:latest
+
+      - name: Simular Deploy
+        run: |
+          echo "Rodando container..."
+          docker run -d -p 8080:80 --name healthmed-api ${{ secrets.DOCKER_USERNAME }}/healthmed-api:latest
+          echo "Deploy Simulado com sucesso!"
