@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: healthmed-config
+data:
+  ACCEPT_EULA: "Y"
+  SA_PASSWORD: "health_med123!" 
+  ASPNETCORE_ENVIRONMENT: "Production"
+  ConnectionStrings__SqlConnection: "Server=sqlserver,1433;Database=HealthMed;User Id=sa;Password=health_med123!;TrustServerCertificate=True"
