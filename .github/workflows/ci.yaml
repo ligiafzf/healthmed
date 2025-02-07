@@ -25,7 +25,7 @@ jobs:
         run: dotnet build HealthMed.Api/HealthMed.Api.csproj --configuration Release --no-restore
 
       - name: Executar testes
-        run: dotnet test HealthMed.Tests/HealthMed.Tests.csproj --configuration Release --no-build
+        run: dotnet test HealthMed.Tests/HealthMed.Tests.csproj --configuration Release
 
       - name: Login no Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
