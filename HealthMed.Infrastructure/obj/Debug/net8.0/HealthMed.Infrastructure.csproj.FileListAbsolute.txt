@@ -1,0 +1,16 @@
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/bin/Debug/net8.0/HealthMed.Infrastructure.deps.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/bin/Debug/net8.0/HealthMed.Infrastructure.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/bin/Debug/net8.0/HealthMed.Infrastructure.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/bin/Debug/net8.0/HealthMed.Domain.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/bin/Debug/net8.0/HealthMed.Domain.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.csproj.AssemblyReference.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.AssemblyInfoInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.AssemblyInfo.cs
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.sourcelink.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMe.4ED9606A.Up2Date
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/refint/HealthMed.Infrastructure.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/HealthMed.Infrastructure.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Infrastructure/obj/Debug/net8.0/ref/HealthMed.Infrastructure.dll

@@ -1,0 +1,12 @@
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/bin/Debug/net8.0/HealthMed.Domain.deps.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/bin/Debug/net8.0/HealthMed.Domain.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/bin/Debug/net8.0/HealthMed.Domain.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.AssemblyInfoInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.AssemblyInfo.cs
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.csproj.CoreCompileInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.sourcelink.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/refint/HealthMed.Domain.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/HealthMed.Domain.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Domain/obj/Debug/net8.0/ref/HealthMed.Domain.dll

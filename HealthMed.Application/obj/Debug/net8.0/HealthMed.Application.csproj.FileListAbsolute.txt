@@ -1,0 +1,16 @@
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/bin/Debug/net8.0/HealthMed.Application.deps.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/bin/Debug/net8.0/HealthMed.Application.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/bin/Debug/net8.0/HealthMed.Application.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/bin/Debug/net8.0/HealthMed.Domain.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/bin/Debug/net8.0/HealthMed.Domain.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.csproj.AssemblyReference.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.AssemblyInfoInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.AssemblyInfo.cs
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.csproj.CoreCompileInputs.cache
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.sourcelink.json
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMe.4357E6DE.Up2Date
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/refint/HealthMed.Application.dll
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/HealthMed.Application.pdb
+/Users/ligiaferrazfranco/Desktop/healthmed/HealthMed.Application/obj/Debug/net8.0/ref/HealthMed.Application.dll

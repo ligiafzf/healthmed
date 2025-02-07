@@ -8,6 +8,9 @@
     ".NETCoreApp,Version=v8.0": {
       "HealthMed.Api/1.0.0": {
         "dependencies": {
+          "HealthMed.Application": "1.0.0",
+          "HealthMed.Domain": "1.0.0",
+          "HealthMed.Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.12",
           "Microsoft.AspNetCore.OpenApi": "8.0.12",
           "Microsoft.EntityFrameworkCore": "9.0.1",
@@ -73,6 +76,25 @@
           "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
             "assemblyVersion": "8.0.12.0",
             "fileVersion": "8.0.1224.60312"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/9.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.124.61009"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/9.0.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "9.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.124.61009"
           }
         }
       },
@@ -433,22 +455,22 @@
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm64",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -595,6 +617,20 @@
           "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
             "assemblyVersion": "9.0.0.1",
             "fileVersion": "9.0.124.61010"
+          }
+        }
+      },
+      "Microsoft.Extensions.Identity.Core/9.0.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "9.0.1",
+          "Microsoft.Extensions.Logging": "9.0.1",
+          "Microsoft.Extensions.Options": "9.0.1",
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Identity.Core.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.124.61009"
           }
         }
       },
@@ -836,6 +872,7 @@
         }
       },
       "System.Collections.Immutable/7.0.0": {},
+      "System.ComponentModel.Annotations/5.0.0": {},
       "System.Composition/7.0.0": {
         "dependencies": {
           "System.Composition.AttributedModel": "7.0.0",
@@ -1096,6 +1133,43 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "HealthMed.Application/1.0.0": {
+        "dependencies": {
+          "HealthMed.Domain": "1.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.1",
+          "Microsoft.Extensions.Identity.Core": "9.0.1",
+          "Microsoft.IdentityModel.Tokens": "8.3.1",
+          "System.IdentityModel.Tokens.Jwt": "8.3.1"
+        },
+        "runtime": {
+          "HealthMed.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "HealthMed.Domain/1.0.0": {
+        "runtime": {
+          "HealthMed.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "HealthMed.Infrastructure/1.0.0": {
+        "dependencies": {
+          "HealthMed.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.1",
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.1",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1"
+        },
+        "runtime": {
+          "HealthMed.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1132,6 +1206,20 @@
       "sha512": "sha512-Th1bIoe3lgQCtkZRzYpU3YruTIaa/C5jI6yJ7djXihtvHGc6WFl823Uh01P2ESbn2eIpgiEbwRw/szlPSPowDA==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.12",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.12.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-leaw8hC6wCKfAg2kAYT4plnaHI7o6bKB9IQy0yLWHmgV0GjE449pu0SEnnl7loEzdLgyQrKyVQvfz7wRErqmxQ==",
+      "path": "microsoft.aspnetcore.cryptography.internal/9.0.1",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.9.0.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/ibWvFYnxjCfOmtQtLTFUN9L70CrQH0daom6tE8/hlxTllUDeXM95fE45dC4u2tBOrfDqB6TPAkUzd/vWaAusA==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/9.0.1",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.9.0.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/8.0.12": {
       "type": "package",
@@ -1315,6 +1403,13 @@
       "path": "microsoft.extensions.dependencymodel/9.0.1",
       "hashPath": "microsoft.extensions.dependencymodel.9.0.1.nupkg.sha512"
     },
+    "Microsoft.Extensions.Identity.Core/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dbvAQhwSyBbgB2BuVJ8PMVx7BK6WZHWhV/vsSnXl6sRLs9D7yXiIiRpgcPVvN5E/UkzRGW1EPXyc3t1EDxWSzg==",
+      "path": "microsoft.extensions.identity.core/9.0.1",
+      "hashPath": "microsoft.extensions.identity.core.9.0.1.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/9.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1475,6 +1570,13 @@
       "sha512": "sha512-dQPcs0U1IKnBdRDBkrCTi1FoajSTBzLcVTpjO4MBCMC7f4pDOIPzgBoX8JjG7X6uZRJ8EBxsi8+DR1JuwjnzOQ==",
       "path": "system.collections.immutable/7.0.0",
       "hashPath": "system.collections.immutable.7.0.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
+      "path": "system.componentmodel.annotations/5.0.0",
+      "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
     },
     "System.Composition/7.0.0": {
       "type": "package",
@@ -1678,6 +1780,21 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "HealthMed.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HealthMed.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HealthMed.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
