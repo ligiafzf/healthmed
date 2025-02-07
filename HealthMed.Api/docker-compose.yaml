@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    build: 
+      context: ..
+      dockerfile: HealthMed.Api/Dockerfile
     container_name: healthmed_api
     ports:
       - "8080:8080"
