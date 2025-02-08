@@ -65,4 +65,12 @@ public class AgendamentoController : ControllerBase
         await _agendamentoService.Rejeitar(id);
         return Ok("Agendamento rejeitado.");
     }
+
+    [Authorize(Roles = "Paciente")]
+    [HttpPut("{id}/cancelar")]
+    public async Task<IActionResult> Cancelar(int id, string motivoCancelamento)
+    {
+        await _agendamentoService.Cancelar(id, motivoCancelamento);
+        return Ok("Agendamento cancelado.");
+    }
 }

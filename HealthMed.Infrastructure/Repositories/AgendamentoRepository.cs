@@ -18,7 +18,7 @@ public class AgendamentoRepository : IAgendamentoRepository
     {
         var query = _context.Agendamentos
             .Include(a => a.Paciente.Usuario)
-            .Where(a => a.MedicoId == medicoId)
+            .Where(a => a.MedicoId == medicoId && !a.Cancelado)
             .AsQueryable();
 
         if (status == StatusAgendamento.Aceitos) query = query.Where(a => a.Aprovado);
@@ -48,9 +48,15 @@ public class AgendamentoRepository : IAgendamentoRepository
         await SalvarAlteracoes();
     }
 
-    public async Task Remover(Agendamento agendamento)
+        public async Task Remover(Agendamento agendamento)
     {
         _context.Agendamentos.Remove(agendamento);
+        await SalvarAlteracoes();
+    }
+
+    public async Task Cancelar(Agendamento agendamento)
+    {
+        _context.Agendamentos.Update(agendamento);
         await SalvarAlteracoes();
     }
 

@@ -7,6 +7,8 @@ public class Agendamento
     public int PacienteId { get; private set; }
     public DateTime DataHora { get; private set; }
     public bool Aprovado { get; private set; } = false;
+    public bool Cancelado { get; set; } = false;
+    public string? MotivoCancelamento { get; set; }
 
     public Paciente Paciente { get; set; }
     public Medico Medico { get; set; }
@@ -22,4 +24,5 @@ public class Agendamento
     {
         Aprovado = true;
     }
+    
 }

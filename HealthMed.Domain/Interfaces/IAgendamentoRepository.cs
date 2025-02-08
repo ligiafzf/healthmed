@@ -10,5 +10,6 @@ public interface IAgendamentoRepository
     Task<IEnumerable<DateTime>> ObterHorariosDisponiveis(int medicoId, DateTime data);
     Task Criar(Agendamento agendamento);
     Task Remover(Agendamento agendamento);
+    Task Cancelar(Agendamento agendamento);
     Task SalvarAlteracoes();
 }

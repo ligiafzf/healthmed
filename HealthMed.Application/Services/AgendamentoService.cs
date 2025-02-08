@@ -98,4 +98,16 @@ public class AgendamentoService : IAgendamentoService
 
         await _agendamentoRepository.Remover(agendamento);
     }
+
+    public async Task Cancelar(int agendamentoId, string motivoCancelamento)
+    {
+        var agendamento = await _agendamentoRepository.ObterPorId(agendamentoId);
+        if (agendamento == null)
+            throw new Exception("Agendamento não encontrado.");
+
+        agendamento.Cancelado = true;
+        agendamento.MotivoCancelamento = motivoCancelamento;
+
+        await _agendamentoRepository.Cancelar(agendamento);
+    }
 }

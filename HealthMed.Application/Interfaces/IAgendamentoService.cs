@@ -10,4 +10,5 @@ public interface IAgendamentoService
     Task Criar(CadastroAgendamentoDto dto);
     Task Aceitar(int agendamentoId);
     Task Rejeitar(int agendamentoId);
+    Task Cancelar(int agendamentoId, string motivoCancelamento);
 }
